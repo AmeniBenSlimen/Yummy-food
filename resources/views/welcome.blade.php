@@ -18,7 +18,16 @@
   <title>Yummy Bootstrap Template - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -83,6 +92,30 @@
 .btn-lg {
   padding: 15px 40px 15px 40px;
 }
+.hidden {
+  display: none;
+}
+
+form > .row {
+  margin-bottom: 20px;
+}
+
+form > .row:last-child {
+  margin-bottom: 0;
+}
+
+form input.invalid {
+  border-color: #dc3545;
+}
+
+form .invalid-feedback {
+  color: #dc3545;
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 4px;
+  text-align: left;
+}
+
         </style>
     </head>
     <body class="antialiased">
@@ -92,7 +125,7 @@
             <a href="{{url('/')}}" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Yummy<span>.</h1></span>
+        <h1>Slayta <span>.</h1></span>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -105,8 +138,8 @@
           <li><a href="#gallery">Galerie</a></li>
           @if (Route::has('login'))
           @auth
-          <li><a href="#book-a-table">Book a Table</a></li>
-      <a class="btn-book-a-table" href="{{ url('/home') }}">Home</a>
+          
+      <a class="btn-book-a-table" href="{{ url('/home') }}">{{Auth::user()->name}}</a>
       @else
       <a class="btn-book-a-table" href="{{ route('login') }}">Connexion</a>
     
@@ -128,11 +161,12 @@
           <p data-aos="fade-up" data-aos-delay="100">Manger sain et pas cher, il faut savoir choisir les bons aliments pour à la fois apporter suffisamment d’énergie à l’organisme, mais surtout les nutriments essentiels pour la bonne santé. .</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Réserver une table</a>
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Regarder la vidéo</span></a>
+            <a href="{{asset('img/video1.mp4')}}" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Regarder la vidéo</span></a>
+            <a href="{{asset('img/video2.mp4')}}" class="glightbox btn-watch-video d-flex align-items-center"></a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-          <img src="{{ asset('img/img1.png')}}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+          <img src="{{ asset('img/imgg.png')}}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
     </div>
@@ -150,32 +184,19 @@
         </div>
 
         <div class="row gy-4">
-          <div class="col-lg-7 position-relative about-img" style="background-image: url({{ asset('img/about.jpg')}}) ;" data-aos="fade-up" data-aos-delay="150">
-            <div class="call-us position-absolute">
-              <h4>Réserver une table</h4>
-              <p>+1 5589 55488 55</p>
-            </div>
+          <div class="col-lg-7 position-relative about-img" style="background-image: url({{ asset('img/cap.png')}}) ; height:50px; width:550px" data-aos="fade-up" data-aos-delay="150">
+          <a href="{{ asset('img/video.mp4')}}" class="glightbox play-btn"></a>
           </div>
           <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+            <div class="content ps-0 ps-lg-5" style="margin-bottom:150px">
+              <p class="fst-italic"> 
+              Au cœur de la tendance healthy, on retrouve de nombreux régimes et restrictions qui s’inscrivent dans ce mode de consommation. Produits bio, sans gluten, régime végétarien ou végan, tous ont pour but de restreindre l’impact de son alimentation sur l’environnement, mais également d’accorder une plus grande place à sa santé dans le choix de ses aliments.
+
               </p>
               <ul>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                <li><i class="bi bi-check2-all"></i> Notre restaurant en vogue en ont fait leur force : qu’il s’agisse d’Hank et ses burgers vegan, du fast-food Copper Branch qui arrive bientôt en France ou de restaurants traditionnels qui incluent des recettes végétariennes ou sans gluten à leur carte, la tendance healthy est un nouveau marché à fort potentiel économique.</li>
+                <li><i class="bi bi-check2-all"></i> Alors, simple tendance ou réelle prise de conscience Seul l’avenir nous le dira, en attendant, n’oubliez pas de vous régaler avant tout !</li>
               </ul>
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-              </p>
-
-              <div class="position-relative mt-4">
-                <img src="{{ asset('img/about-2.jpg')}}" class="img-fluid" alt="">
-                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
-              </div>
             </div>
           </div>
         </div>
@@ -191,13 +212,12 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="why-box">
-              <h3>Why Choose Yummy?</h3>
+              <h3>Pourquoi choisir Slayta ?</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+              Chez SLAYTA , nous vous accueillons dans un cadre d’exception, mixant subtilement des espaces de restauration assise moderne et des zones plus chaleureuses. Découvrez en famille ou entre amis nos espaces détente construits autours de canapés et de tables basses, et jetez un coup d’oeil à nos cuisines ouvertes, au sein desquelles nos équipes s’activent pour vous préparer le repas le plus gourmand qui soit !
               </p>
               <div class="text-center">
-                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                <a href="#" class="more-btn">Voir Plus <i class="bx bx-chevron-right"></i></a>
               </div>
             </div>
           </div><!-- End Why Box -->
@@ -208,24 +228,24 @@
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-clipboard-data"></i>
-                  <h4>Corporis voluptates officia eiusmod</h4>
-                  <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                  <h4>Conseil 1</h4>
+                  <p>'' manger de préférence des aliments bio, le plus naturel possible ''</p><br><br><br>
                 </div>
               </div><!-- End Icon Box -->
 
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-gem"></i>
-                  <h4>Ullamco laboris ladore pan</h4>
-                  <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                  <h4>Conseil 2</h4>
+                  <p>'' manger lentement et consciemment, bien mastiquer permet d’apprendre à savourer la forme, la texture, l’odeur et le goût des aliments ''</p>
                 </div>
               </div><!-- End Icon Box -->
 
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-inboxes"></i>
-                  <h4>Labore consequatur incidid dolore</h4>
-                  <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                  <i class="bi bi-inboxes" ></i>
+                  <h4>Conseil 3</h4>
+                  <p>'' manger deux ou trois bon repas, éviter les collations, même les collations de bonne qualité sont inutiles et provoquent un stress ''</p>
                 </div>
               </div><!-- End Icon Box -->
 
@@ -253,21 +273,21 @@
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
+              <p>Plats</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
+              <p>Heures d'assistance</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
+              <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Travailleurs</p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -281,34 +301,24 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Our Menu</h2>
-          <p>Check Our <span>Yummy Menu</span></p>
+          <h2>Notre Menu</h2>
+          <p>Consultez notre <span>Slayta Menu</span></p>
         </div>
 
         <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 
           <li class="nav-item">
             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-              <h4>Starters</h4>
+              <h4>Entrées</h4>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-              <h4>Breakfast</h4>
+              <h4>Déjeuner</h4>
             </a><!-- End tab nav item -->
 
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-              <h4>Lunch</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-              <h4>Dinner</h4>
-            </a>
-          </li><!-- End tab nav item -->
+          
 
         </ul>
 
@@ -318,23 +328,38 @@
 
             <div class="tab-header text-center">
               <p>Menu</p>
-              <h3>Starters</h3>
+              <h3>Entrées</h3>
             </div>
 
             <div class="row gy-5">
 
               <div class="col-lg-4 menu-item">
-                <img src="{{ asset('img/menu/menu-item-1.png')}}" class="menu-img img-fluid" alt="">
-                <h4>Magnam Tiste</h4>
+                <img src="{{ asset('img/img11.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Slayta viande séchée</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                Finally ✨ La viande séchée 🥓<br>
+                Riche en fer et en goût.
+
                 </p>
                 <p class="price">
-                  $5.95
+                  17 DT
                 </p>
+                <div id="form-template" class="hidden">
+<form>
+    <div class="row">
+      <div class="col-sm-12">
+        <input name="username" placeholder="Username" class="swal-content__input" type="text">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <input name="password" placeholder="Password" class="swal-content__input" type="password">
+      </div>
+    </div>
+  </form>    
+</div>
                 <div class="container mt-3">
         <!-- Button trigger modal -->
-        <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
   
   
   <!-- Modal -->
@@ -362,71 +387,68 @@
    </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-2.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-2.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
+                <img src="{{ asset('img/img22.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Slayta protéines</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                Version pré-workout avec du Riz 🍚pour la bonne dose de carbs et de protéines.
+
                 </p>
                 <p class="price">
-                  $14.95
+                  11 DT
                 </p>
                 
         <!-- Button trigger modal -->
-        <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-3.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-3.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
+                <img src="{{ asset('img/img33.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Slayta pêche 😉🍑</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                Version pré-workout avec du pêches pour garder le poid
                 </p>
                 <p class="price">
-                  $8.95
+                  15 DT
                 </p>
                 
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-3.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-3.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
+                <a href="{{ asset('img/menu/menu-item-3.png')}}" class="glightbox"><img src="{{ asset('img/img55.png')}}" class="menu-img img-fluid" alt=""></a>
+                <h4>Slayta Quinoa & Grenade  🔥</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                Fresh and Colorful Quinoa Salad                
                 </p>
                 <p class="price">
-                  $8.95
+                  25 DT
                 </p>
                 
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-5.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-5.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-              
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-6.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-6.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
+                <img src="{{ asset('img/img44.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Slayta Exotique 🍍🍤</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                La fameuse Slayta Exotique avec le crevettes               
                 </p>
                 <p class="price">
-                  $9.95
+                  35 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
+
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <img src="{{ asset('img/img66.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Slayta crevettes 🍤🤤</h4>
+                <p class="ingredients">
+                
+ salade Shrimplly  avec le crevettes               
+                </p>
+                <p class="price">
+                  40 DT
+                </p>
 
               </div><!-- Menu Item -->
 
@@ -437,84 +459,85 @@
 
             <div class="tab-header text-center">
               <p>Menu</p>
-              <h3>Breakfast</h3>
+              <h3>Déjeuner</h3>
             </div>
 
             <div class="row gy-5">
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-1.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-1.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
+                <img src="{{ asset('img/img77.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Plat Omlettes </h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
+                
+                Plat avec Omlettes, Avocat, Tomates              
+                               </p>
                 <p class="price">
-                  $5.95
+                  8 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-2.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-2.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
+                <img src="{{ asset('img/img88.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Granola</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
+                
+                   Plat avec Granola ou muesli            
+                               </p>
                 <p class="price">
-                  $14.95
+                  10 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-3.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-3.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
+                <img src="{{ asset('img/img99.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Le Power Bowl</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                
+              Salade avec le fruit secs et oranges               
                 </p>
                 <p class="price">
-                  $8.95
+                 15 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-4.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-4.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
+                <img src="{{ asset('img/img111.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Bol de fruit Healthy</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
+                Salade Pêche et tomate cerise 
+                              
                 </p>
                 <p class="price">
-                  $12.95
+                  13 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-5.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-5.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
+                <img src="{{ asset('img/img10.png')}}" class="menu-img img-fluid" alt="">
+                <h4> Bircher aux Flocones d'avoine</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
+                
+                            Bol de Flocones d'avoine
+                               </p>
                 <p class="price">
-                  $12.95
+                  11 DT
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
               <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-6.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-6.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
+                <img src="{{ asset('img/img12.png')}}" class="menu-img img-fluid" alt="">
+                <h4>Bol de courgettes et basilic</h4>
                 <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
+                
+                Salade de courgettes et basilic               
+                               </p>
                 <p class="price">
-                  $9.95
+                 17 DT
                 </p>
                 <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
@@ -523,96 +546,7 @@
             </div>
           </div><!-- End Breakfast Menu Content -->
 
-          <div class="tab-pane fade" id="menu-lunch">
-
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Lunch</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-1.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-1.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-2.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-2.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-3.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-3.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-4.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-4.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-5.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-5.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="{{ asset('img/menu/menu-item-6.png')}}" class="glightbox"><img src="{{ asset('img/menu/menu-item-6.png')}}" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
-
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Lunch Menu Content -->
-
+         
           <div class="tab-pane fade" id="menu-dinner">
 
             <div class="tab-header text-center">
@@ -631,7 +565,6 @@
                 <p class="price">
                   $5.95
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
@@ -657,7 +590,6 @@
                 <p class="price">
                   $8.95
                 </p>
-                        <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
@@ -670,7 +602,6 @@
                 <p class="price">
                   $12.95
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
@@ -696,7 +627,6 @@
                 <p class="price">
                   $9.95
                 </p>
-                <a href="#" class="standard-btn-coloured"  style="border-radius: 12px;color:white;">Click Me</a>
 
               </div><!-- Menu Item -->
 
@@ -714,7 +644,7 @@
 
         <div class="section-header">
           <h2>Testimonials</h2>
-          <p>What Are They <span>Saying About Us</span></p>
+          <p>Que Disent-Ils <span>De Nous</span></p>
         </div>
 
         <div class="slides-1 swiper" data-aos="fade-up" data-aos-delay="100">
@@ -727,18 +657,17 @@
                     <div class="testimonial-content">
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                        <i class="bi bi-quote quote-icon-right"></i>
+                        tres tres bon accueil. qualite des plats excellente ainsi que la quantité. présentation des plats recherchee.serveuse attentive à la satisfaction des clients grand merci.                        <i class="bi bi-quote quote-icon-right"></i>
                       </p>
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
+                      <h3>Jendoubi Nedra</h3>
+                      <h4>Cliente</h4>
                       <div class="stars">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-2 text-center">
-                    <img src="{{ asset('img/testimonials/testimonials-1.jpg')}}" class="img-fluid testimonial-img" alt="">
+                    <img src="{{ asset('img/nedra.png')}}" class="img-fluid testimonial-img" alt="">
                   </div>
                 </div>
               </div>
@@ -751,18 +680,17 @@
                     <div class="testimonial-content">
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
-                        Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                        <i class="bi bi-quote quote-icon-right"></i>
+                        Découverte du restaurant grâce à nos enfants. Cadre accueillant et chaleureux. Service de qualité effectué avec gentillesse. Plats très copieux, de très bonnes qualités superbement présentés. nous reviendrons                        <i class="bi bi-quote quote-icon-right"></i>
                       </p>
-                      <h3>Sara Wilsson</h3>
-                      <h4>Designer</h4>
+                      <h3>Ben Khedher Mouna</h3>
+                      <h4>Cliente</h4>
                       <div class="stars">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-2 text-center">
-                    <img src="{{ asset('img/testimonials/testimonials-2.jpg')}}" class="img-fluid testimonial-img" alt="">
+                    <img src="{{ asset('img/mouna.png')}}" class="img-fluid testimonial-img" alt="">
                   </div>
                 </div>
               </div>
@@ -775,18 +703,17 @@
                     <div class="testimonial-content">
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
-                        Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                        <i class="bi bi-quote quote-icon-right"></i>
+                        Tout simplement excellent. Une des meilleure adresse des Pyrénées orientales. A midi ou le soir , sur l'ardoise ou à la carte toujours la même qualité de plats. L'accueil est impeccable .                        <i class="bi bi-quote quote-icon-right"></i>
                       </p>
-                      <h3>Jena Karlis</h3>
-                      <h4>Store Owner</h4>
+                      <h3>Boulila Aymen</h3>
+                      <h4>Client</h4>
                       <div class="stars">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-2 text-center">
-                    <img src="{{ asset('img/testimonials/testimonials-3.jpg')}}" class="img-fluid testimonial-img" alt="">
+                    <img src="{{ asset('img/aymen.png')}}" class="img-fluid testimonial-img" alt="">
                   </div>
                 </div>
               </div>
@@ -799,18 +726,19 @@
                     <div class="testimonial-content">
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
-                        Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                        <i class="bi bi-quote quote-icon-right"></i>
+                        Nous avons découvert ce restaurant grâce à des amis
+Aucune fausse note du début à la fin Des plats aussi beau que bon pour un prix très raisonnable au regard de la qualité dans un décor très sympa et original
+Avons passé un très bon moment à quatre Il est certain que nous reviendrons                        <i class="bi bi-quote quote-icon-right"></i>
                       </p>
-                      <h3>John Larson</h3>
-                      <h4>Entrepreneur</h4>
+                      <h3>Ben Fathallah Omar</h3>
+                      <h4>Client</h4>
                       <div class="stars">
                         <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-2 text-center">
-                    <img src="{{ asset('img/testimonials/testimonials-4.jpg')}}" class="img-fluid testimonial-img" alt="">
+                    <img src="{{ asset('img/omar.png')}}" class="img-fluid testimonial-img" alt="">
                   </div>
                 </div>
               </div>
@@ -828,35 +756,34 @@
       <div class="container-fluid" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Events</h2>
-          <p>Share <span>Your Moments</span> In Our Restaurant</p>
+          <h2>ÉVÉNEMENTS</h2>
+          <p>Partagez <span>Vos Moments</span> Dans Notre Restaurant</p>
         </div>
 
         <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
           <div class="swiper-wrapper">
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/events-1.jpg')}})">
-              <h3>Custom Parties</h3>
-              <div class="price align-self-start">$99</div>
+            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/img13.png')}})">
+              <h3>Rendez-vous</h3>
+              <div class="price align-self-start">50 DT</div>
               <p class="description">
-                Quo corporis voluptas ea ad. Consectetur inventore sapiente ipsum voluptas eos omnis facere. Enim facilis veritatis id est rem repudiandae nulla expedita quas.
-              </p>
+              Mon ami , Je voulais te remercier pour ce déjeuner passé ensemble, cela m'a fait très plaisir de pouvoir passer un peu de temps avec toi en partageant un bon repas.              </p>
             </div><!-- End Event item -->
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/events-2.jpg')}})">
-              <h3>Private Parties</h3>
-              <div class="price align-self-start">$289</div>
+            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/img17.png')}})">
+              <h3>Moment avec les amis</h3>
+              <div class="price align-self-start">150 DT</div>
               <p class="description">
-                In delectus sint qui et enim. Et ab repudiandae inventore quaerat doloribus. Facere nemo vero est ut dolores ea assumenda et. Delectus saepe accusamus aspernatur.
-              </p>
+              Réunis entre amis autour d'un bon repas.
+Je veux nous souhaiter bon appétit.
+Merci pour ce moment sympa.              </p><br><br>
             </div><!-- End Event item -->
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/events-3.jpg')}})">
-              <h3>Birthday Parties</h3>
-              <div class="price align-self-start">$499</div>
+            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url({{asset('img/img15.png')}})">
+              <h3>Avis</h3>
+              <div class="price align-self-start">100 DT</div>
               <p class="description">
-                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam. Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
-              </p>
+              Nous voulions tous te remercier pour ce repas de samedi car malgré la pluie nous avons passé un excellent moment grâce à ces plats tous plus bons les uns que les autres bien sûr .             </p>
             </div><!-- End Event item -->
 
           </div>
@@ -872,7 +799,7 @@
 
         <div class="section-header">
           <h2>Chefs</h2>
-          <p>Our <span>Proffesional</span> Chefs</p>
+          <p>Notre <span>Chefs</span> Profesionnele</p>
         </div>
 
         <div class="row gy-4">
@@ -880,7 +807,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member">
               <div class="member-img">
-                <img src="{{ asset('img/chefs/chefs-1.jpg')}}" class="img-fluid" alt="">
+                <img src="{{ asset('img/chef1.jpg')}}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -889,17 +816,17 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
+                <h4>Ben Arfia Maroua</h4>
                 <span>Master Chef</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+                <p>Deux fois nommé Silver Winner dans la catégorie Best of Madison, French Food Category. Sa fameuse cuisine franco-méditerranéenne a été décrite comme «le meilleur repas que j'ai jamais mangé» par Mike Muckian.</p>
               </div>
             </div>
           </div><!-- End Chefs Member -->
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" >
             <div class="chef-member">
               <div class="member-img">
-                <img src="{{ asset('img/chefs/chefs-2.jpg')}}" class="img-fluid" alt="">
+                <img src="{{ asset('img/chef2.jpg')}}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -908,9 +835,9 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Sarah Jhonson</h4>
+                <h4>Abidelli Farah</h4>
                 <span>Patissier</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+                <p>Cuisiner n'est pas toujours évident. Il faut trouver les recettes, les préparer, les adapter en fonction de vos ingrédients ou des goûts de chacun.. Cuisiner n'est pas toujours évident. Il faut trouver les recettes, les préparer, les adapter en fonction de vos ingrédients ou des goûts de chacun.</p>
               </div>
             </div>
           </div><!-- End Chefs Member -->
@@ -918,7 +845,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="chef-member">
               <div class="member-img">
-                <img src="{{ asset('img/chefs/chefs-3.jpg')}}" class="img-fluid" alt="">
+                <img src="{{ asset('img/chef3.jpg')}}" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -927,9 +854,9 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>William Anderson</h4>
+                <h4>Bargaoui Aymen</h4>
                 <span>Cook</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+                <p>« D’autres produits phares de la Tunisie, comme l’huile d’olive, les dattes et sardines vont également bénéficier de cette certification. C’est la meilleure option pour les marchés internationaux. »</p>
               </div>
             </div>
           </div><!-- End Chefs Member -->
@@ -944,52 +871,101 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Book A Table</h2>
-          <p>Book <span>Your Stay</span> With Us</p>
+          <h2>RÉSERVER UNE TABLE</h2>
+          <p>Réservez <span>Votre Séjour</span> Avec Vous</p>
         </div>
 
         <div class="row g-0">
 
-          <div class="col-lg-4 reservation-img" style="background-image: url({{asset('img/reservation.jpg')}});" data-aos="zoom-out" data-aos-delay="200"></div>
+          <div class="col-lg-4 reservation-img" style="background-image: url({{asset('img/capture1.png')}});" data-aos="zoom-out" data-aos-delay="200"></div>
 
           <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
-            <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-              <div class="row gy-4">
+            <form action="{{route('Reservation')}}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            @csrf  
+            @if(session()->get('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}  
+</div><br />
+@endif
+            @if (Route::has('login'))
+            @auth
+            <div class="row gy-4">
+           
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
+                  <input type="text" name="nom" value="{{Auth::user()->name}}" disabled class="form-control" id="name" placeholder="Votre Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
-                  <div class="validate"></div>
+                  <input type="email" class="form-control" value="{{Auth::user()->email}}" disabled name="mail" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email">
+                 
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
+                  <input type="text" class="form-control" required name="phone" id="phone" placeholder="Votre numéro de Téléphone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" name="date" class="form-control" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
+                  <input  name="date" class="form-control" required type="datetime-local" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="time" id="time" placeholder="Time" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="number" class="form-control" name="people" id="people" placeholder="# of people" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
-                  <div class="validate"></div>
+                  <input type="number" class="form-control" required name="personne" id="people" placeholder="Nombre de place" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
+                  
                 </div>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
-                <div class="validate"></div>
+                <textarea class="form-control" required name="message" rows="5" placeholder="Message"></textarea>
+               
               </div>
-              <div class="mb-3">
+              <br>
+              <div class="text-center"><button type="submit" id="b7">Réserver une Table</button></div>
+            </form>
+          </div><!-- End Reservation Form -->
+
+        </div>
+
+      </div>
+    </section>
+                @else
+                <div class="row gy-4">
+                
+							
+                @if(session()->get('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}  
+</div><br />
+@endif
+                <div class="col-lg-4 col-md-6">
+                  <input type="text" required name="nom" class="form-control" id="name" placeholder="Votre Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input required type="email" class="form-control" name="mail" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email">
+                 
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input type="text" class="form-control" required name="phone" id="phone" placeholder="Votre numéro de Téléphone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input  name="date" class="form-control" required type="datetime-local" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input type="number" class="form-control" required name="personne" id="people" placeholder="Nombre de place" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
+                  
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control"  required name="message" rows="5" placeholder="Message"></textarea>
+               
+              </div>
+              <br>
+              <!-- <div class="mb-3">
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Book a Table</button></div>
+              </div> -->
+              <div class="text-center"><button type="submit" id="b7">Réserver une Table</button></div>
             </form>
           </div><!-- End Reservation Form -->
 
@@ -997,7 +973,8 @@
 
       </div>
     </section><!-- End Book A Table Section -->
-
+    @endauth
+                @endif
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery section-bg">
       <div class="container" data-aos="fade-up">
@@ -1009,14 +986,12 @@
 
         <div class="gallery-slider swiper">
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-1.jpg')}}"><img src="{{ asset('img/gallery/gallery-1.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-2.jpg')}}"><img src="{{ asset('img/gallery/gallery-2.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-3.jpg')}}"><img src="{{ asset('img/gallery/gallery-3.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-4.jpg')}}"><img src="{{ asset('img/gallery/gallery-4.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-5.jpg')}}"><img src="{{ asset('img/gallery/gallery-5.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-6.jpg')}}"><img src="{{ asset('img/gallery/gallery-6.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-7.jpg')}}"><img src="{{ asset('img/gallery/gallery-7.jpg')}}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/gallery/gallery-8.jpg')}}"><img src="{{ asset('img/gallery/gallery-8.jpg')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c3.png')}}"><img src="{{ asset('img/c3.png')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c4.png')}}"><img src="{{ asset('img/c4.png')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c5.png')}}"><img src="{{ asset('img/c5.png')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c4.png')}}"><img src="{{ asset('img/c4.png')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c3.png')}}"><img src="{{ asset('img/c3.png')}}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{{ asset('img/c4.png')}}"><img src="{{ asset('img/c4.png')}}" class="img-fluid" alt=""></a></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -1030,7 +1005,7 @@
 
         <div class="section-header">
           <h2>Contact</h2>
-          <p>Need Help? <span>Contact Us</span></p>
+          <p>Besoin d'aide? <span>Nous contacter</span></p>
         </div>
 
         <div class="mb-3">
@@ -1043,8 +1018,8 @@
             <div class="info-item  d-flex align-items-center">
               <i class="icon bi bi-map flex-shrink-0"></i>
               <div>
-                <h3>Our Address</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <h3>Notre Adresse</h3>
+                <p>Slayta Bar à Salade, avenue de l'environnement, Tunis</p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -1053,8 +1028,8 @@
             <div class="info-item d-flex align-items-center">
               <i class="icon bi bi-envelope flex-shrink-0"></i>
               <div>
-                <h3>Email Us</h3>
-                <p>contact@example.com</p>
+                <h3>Email</h3>
+                <p>slayta.barasalade@gmail.com</p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -1063,8 +1038,8 @@
             <div class="info-item  d-flex align-items-center">
               <i class="icon bi bi-telephone flex-shrink-0"></i>
               <div>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
+                <h3>Téléphone</h3>
+                <p>+216 50 152 191</p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -1073,9 +1048,9 @@
             <div class="info-item  d-flex align-items-center">
               <i class="icon bi bi-share flex-shrink-0"></i>
               <div>
-                <h3>Opening Hours</h3>
-                <div><strong>Mon-Sat:</strong> 11AM - 23PM;
-                  <strong>Sunday:</strong> Closed
+                <h3>Horaires d'ouvertures</h3>
+                <div><strong>Lundi - Dimanche:</strong> 08:30h - 23:00h
+                  
                 </div>
               </div>
             </div>
@@ -1083,27 +1058,24 @@
 
         </div>
 
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
+        <form action="" method="post" role="form" class="php-email-form p-3 p-md-4">
+          @csrf
           <div class="row">
             <div class="col-xl-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+              <input type="text" name="nom" class="form-control" id="name" placeholder="Votre Nom" required>
             </div>
             <div class="col-xl-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+              <input type="email" class="form-control" name="mail" id="email" placeholder="Votre Email" required>
             </div>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+            <input type="text" class="form-control" name="sujet" id="subject" placeholder="Sujet" required>
           </div>
           <div class="form-group">
             <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
           </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-          </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
+         
+          <div class="text-center"><button type="submit" id="success">Envoyer le message</button></div>
         </form>
         <!--End Contact Form -->
 
@@ -1120,10 +1092,10 @@
         <div class="col-lg-3 col-md-6 d-flex">
           <i class="bi bi-geo-alt icon"></i>
           <div>
-            <h4>Address</h4>
+            <h4>Addresse</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
+            Slayta Bar à Salade, <br>
+            avenue de l'environnement, Tunis<br>
             </p>
           </div>
 
@@ -1134,8 +1106,8 @@
           <div>
             <h4>Reservations</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Téléphone:</strong> +216 50 152 191<br>
+              <strong>Email:</strong> slayta.barasal@gmail.com<br>
             </p>
           </div>
         </div>
@@ -1143,21 +1115,21 @@
         <div class="col-lg-3 col-md-6 footer-links d-flex">
           <i class="bi bi-clock icon"></i>
           <div>
-            <h4>Opening Hours</h4>
+            <h4>Horaires d'ouvertures</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+              <strong>Lundi - Dimanche: 08:30h</strong> - 23:00h<br>
+              
             </p>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
+          <h4>Suivez nous</h4>
           <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+           
+            <a href="https://www.facebook.com/slayta.barasalade" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="instagram.com/slayta.barasalade/?hl=fr" class="instagram"><i class="bi bi-instagram"></i></a>
+           
           </div>
         </div>
 
@@ -1166,14 +1138,14 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Yummy</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Slayta</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">Ben Slimen Ameni</a>
       </div>
     </div>
 
@@ -1198,3 +1170,73 @@
 </body>
 
 </html>
+<script>
+		$(document).on('click', '#success', function(e) {
+			swal(
+				'Success',
+				'Votre message est envoyée avec <b style="color:green;">Succée</b>',
+				'success'
+			)
+		});
+    $(document).on('click', '#b7', function(e) {
+			swal(
+				'<b style="color:green;">Bien Reçu</b>',
+				'Merci de rester disponible pour vous appeler 😊',
+				'success'
+			)
+		});
+    
+// store form HTML markup in a JS variable
+var formTemplate = $('#form-template > form').clone()[0];
+$('#form-template').remove();
+
+// prepare SweetAlert configuration
+var swalConfig = {
+  title: 'Demo Form',
+  content: formTemplate,
+  button: {
+    text: 'Submit',
+    closeModal: false
+  }
+};
+
+// handle clicks on the "Click me" button
+$('#click-me-btn').click(function () {
+  swal(swalConfig);
+});
+
+// handle clicks on the "Submit" button of the modal form
+$('body').on('click', '.swal-button--confirm', function() {
+  simulateAjaxRequest();
+});
+
+// mock AJAX requests for this demo
+var isFakeAjaxRequestSuccessfull = false;
+
+function simulateAjaxRequest() {
+  // "send" the fake AJAX request
+  var fakeAjaxRequest = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      isFakeAjaxRequestSuccessfull ? resolve() : reject();
+      isFakeAjaxRequestSuccessfull = !isFakeAjaxRequestSuccessfull;
+      swal.stopLoading();
+    }, 200);
+  });
+  
+  // attach success and error handlers to the fake AJAX request
+  fakeAjaxRequest.then(function () {
+    // do this if the AJAX request is successfull:
+    $('input.invalid').removeClass('invalid');
+    $('.invalid-feedback').remove();
+  }).catch(function () {
+    // do this if the AJAX request fails:
+    var errors = {
+      username: 'Username is invalid',
+      password: 'Password is invalid'
+    };
+    $.each(errors, function(key, value) {
+      $('input[name="' + key + '"]').addClass('invalid').after('<div class="invalid-feedback">' + value + '</div>');
+    });
+  });
+}
+</script>

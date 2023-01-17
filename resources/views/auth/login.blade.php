@@ -1,3 +1,4 @@
+@extends('layouts.footer')
 @extends('layouts.navbar')
 @extends('layouts.app')
 @section('content')
@@ -29,7 +30,7 @@
                                 @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
                         <input type="password" class="form-control border border-primary @error('password') is-invalid @enderror" id="exampleInputPassword1" name="password" required autocomplete="current-password">
                     
                         @error('password')
@@ -49,3 +50,4 @@
 @endsection
 </body>
 </html>
+

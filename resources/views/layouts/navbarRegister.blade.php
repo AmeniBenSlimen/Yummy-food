@@ -76,8 +76,8 @@
           <li><a href="#gallery">Galerie</a></li>
           @if (Route::has('login'))
           @auth
-          <li><a href="#book-a-table">Book a Table</a></li>
-      <a class="btn-book-a-table" href="{{ url('/home') }}">Home</a>
+        
+          <a class="btn-book-a-table" href="{{ url('/EspaceClient') }}">Espace Client</a>
       @else
       <a class="btn-book-a-table" href="{{ route('login') }}">Connexion</a>
     

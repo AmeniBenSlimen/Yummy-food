@@ -1,4 +1,5 @@
-@extends('layouts.navbar')
+@extends('layouts.footer')
+@extends('layouts.navbarRegister')
 @extends('layouts.app')
 @section('content')
 <!-- CSS only -->
@@ -23,10 +24,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
-                        <input type="email" class="form-control border border-primary form-control @error('name') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input type="email" class="form-control border border-primary form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ ('Votre Adresse Email est déja existe') }}</strong>
                                     </span>
                                 @enderror
                     </div>
